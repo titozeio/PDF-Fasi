@@ -23,6 +23,9 @@ incrementally.
 - Prefer simple, well-documented flows over complex abstractions.
 - Design for usability and accessibility first.
 - Add features iteratively, starting with compression.
+- Treat each epic as a vertical slice that should feel like a finished product,
+  not a prototype.
+- Finish UX and UI polish for a feature before moving to the next epic.
 
 ## Data And Storage
 
@@ -52,10 +55,10 @@ incrementally.
 - Keep the preload bridge minimal and explicit.
 - Favor incremental changes that can be verified quickly.
 - Document any future architectural change before implementing it.
+- Include UX/UI work in the epic scope so features ship polished and usable.
 
 ## Open Decisions
 
 - The exact PDF compression engine is not decided yet.
 - The packaging toolchain is not finalized yet.
 - A richer persistence layer may be added later if features require it.
-
