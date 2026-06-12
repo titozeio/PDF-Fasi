@@ -5,7 +5,8 @@
   "description": "Desktop PDF utility focused on local compression",
   "main": "src/main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "test": "node --test"
   },
   "devDependencies": {
     "electron": "*"

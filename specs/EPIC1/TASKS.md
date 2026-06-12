@@ -20,8 +20,8 @@ Status legend:
 
 ## US2: As a developer, I want the UI structure separated from the business logic so that the app can evolve cleanly with an MVVM architecture
 
-[ ] [T3] Create the initial MVVM structure for the compression feature, including view-model boundaries and app-state ownership.
-[ ] [T4] Wire the screen shell to the view-model layer with explicit, minimal data and action bindings.
+[T] [T3] Create the initial MVVM structure for the compression feature, including view-model boundaries and app-state ownership.
+[T] [T4] Wire the screen shell to the view-model layer with explicit, minimal data and action bindings.
 
 ## US3: As a user, I want to select more than one PDF at a time so that I can compress files in batch
 
