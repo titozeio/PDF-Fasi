@@ -7,7 +7,7 @@ compression experience with a simple, attractive, and usable desktop interface.
 
 ## Status
 
-`tasks`
+`implement`
 
 ## User Stories
 
@@ -34,6 +34,8 @@ process is advancing.
 
 ## Scope
 
+- Open the app directly into the compression experience, without a separate
+  home menu for the MVP.
 - Design and implement the compression screen and its interaction model.
 - Separate the UI structure from the application logic using MVVM.
 - Support single-file and batch PDF selection.
@@ -45,5 +47,7 @@ process is advancing.
 
 - This epic is intentionally a full vertical slice, not a prototype pass.
 - UX/UI polish is part of the epic definition.
+- The MVP intentionally avoids a home dashboard so the user lands directly on
+  the compression workflow.
 - The compression engine and exact parameter set may still evolve during
   implementation, but the user-facing behavior should stay simple.

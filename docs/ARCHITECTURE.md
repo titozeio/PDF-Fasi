@@ -27,6 +27,8 @@ incrementally.
 - Treat each epic as a vertical slice that should feel like a finished product,
   not a prototype.
 - Finish UX and UI polish for a feature before moving to the next epic.
+- For the initial product, open directly into the compression experience rather
+  than adding a home dashboard that only adds an extra click.
 
 ## Data And Storage
 
@@ -58,6 +60,8 @@ incrementally.
 - Keep the preload bridge minimal and explicit.
 - Favor incremental changes that can be verified quickly.
 - Document any future architectural change before implementing it.
+- Follow `docs/DESIGN.md` as the source of truth for visual tokens, layout
+  rhythm, and interaction style.
 - Include UX/UI work in the epic scope so features ship polished and usable.
 
 ## Open Decisions

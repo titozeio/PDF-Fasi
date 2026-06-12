@@ -15,8 +15,8 @@ Status legend:
 
 ## US1: As a user, I want a modern, intuitive, and usable compression UI so that I can handle the app with ease
 
-[ ] [T1] Define the compression screen layout, visual hierarchy, and core interaction states for the first polished UI slice.
-[ ] [T2] Implement the base compression screen shell in the renderer with the agreed visual language.
+[T] [T1] Define the compression screen layout, visual hierarchy, and core interaction states for the first polished UI slice.
+[T] [T2] Implement the base compression screen shell in the renderer with the agreed visual language.
 
 ## US2: As a developer, I want the UI structure separated from the business logic so that the app can evolve cleanly with an MVVM architecture
 
@@ -54,4 +54,3 @@ Status legend:
 - Then add file selection and preset-driven compression.
 - Keep custom compression, progress, and export aligned with the final flow.
 - The first usable slice should remain visually polished throughout implementation.
-
