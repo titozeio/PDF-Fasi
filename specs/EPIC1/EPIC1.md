@@ -7,7 +7,7 @@ compression experience with a simple, attractive, and usable desktop interface.
 
 ## Status
 
-`implement`
+`review`
 
 ## User Stories
 

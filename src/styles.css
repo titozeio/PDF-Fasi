@@ -112,6 +112,26 @@ p {
   font-weight: 600;
 }
 
+.status-pill[data-variant="processing"] {
+  background: rgba(15, 118, 110, 0.12);
+  color: var(--primary);
+}
+
+.status-pill[data-variant="success"] {
+  background: rgba(21, 128, 61, 0.12);
+  color: var(--success);
+}
+
+.status-pill[data-variant="warning"] {
+  background: rgba(217, 119, 6, 0.12);
+  color: var(--warning);
+}
+
+.status-pill[data-variant="error"] {
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--error);
+}
+
 .workspace {
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(380px, 0.92fr);

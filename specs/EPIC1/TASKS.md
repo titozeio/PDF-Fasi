@@ -40,13 +40,13 @@ Status legend:
 
 ## US7: As a user, I want to see compression progress so that I know how the process is advancing
 
-[ ] [T11] Add progress and status feedback during compression.
-[ ] [T12] Surface success, warning, and error states clearly in the UI.
+[T] [T11] Add progress and status feedback during compression.
+[T] [T12] Surface success, warning, and error states clearly in the UI.
 
 ## US6: As a user, I want to export a single compressed PDF or a `.zip` file with multiple compressed PDFs so that I can save the results in the right form
 
-[ ] [T13] Implement export handling for a single compressed PDF.
-[ ] [T14] Implement batch export handling that bundles multiple compressed PDFs into a `.zip`.
+[T] [T13] Implement export handling for a single compressed PDF.
+[T] [T14] Implement batch export handling that bundles multiple compressed PDFs into a `.zip`.
 
 ## Ordering Notes
 

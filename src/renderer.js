@@ -47,6 +47,7 @@ function render(state) {
   refs.batchMeta.textContent = state.status.batch;
   refs.etaMeta.textContent = state.status.eta;
   refs.topStatus.textContent = state.status.top;
+  refs.topStatus.dataset.variant = state.status.variant;
   refs.progressFill.style.width = `${state.progress}%`;
   refs.progressLabel.textContent = `${Math.round(state.progress)}%`;
   refs.exportBtn.disabled = !state.canExport;
@@ -54,9 +55,11 @@ function render(state) {
   refs.clearBtn.disabled = !state.canClear;
   refs.previewBtn.disabled = false;
   refs.customPanel.classList.toggle('hidden', state.mode !== 'custom');
-  refs.resultCopy.textContent = state.result
-    ? `Compression complete. ${state.result.count > 1 ? 'ZIP export ready.' : 'PDF export ready.'}`
-    : 'Compressed files will appear here after processing.';
+  refs.resultCopy.textContent = state.error
+    ? state.error
+    : state.result
+      ? `Compression complete. ${state.result.count > 1 ? 'ZIP export ready.' : 'PDF export ready.'}`
+      : 'Compressed files will appear here after processing.';
   refs.jpegValue.textContent = `${state.custom.jpegQuality}%`;
   refs.resolutionValue.textContent = state.custom.maxImageResolution === 'keep-original'
     ? 'Keep original'
@@ -137,7 +140,20 @@ refs.dropzone.addEventListener('drop', (event) => {
 refs.clearBtn.addEventListener('click', () => vm?.clearFiles());
 refs.compressBtn.addEventListener('click', () => vm?.compress());
 refs.previewBtn.addEventListener('click', () => vm?.togglePreview());
-refs.exportBtn.addEventListener('click', () => vm?.exportResult());
+refs.exportBtn.addEventListener('click', async () => {
+  const exportArtifact = vm?.exportResult();
+  if (!exportArtifact) return;
+
+  const result = await window.pdfFasi.saveExport(exportArtifact);
+  if (result.canceled) {
+    refs.topStatus.textContent = 'Export canceled';
+    refs.topStatus.dataset.variant = 'warning';
+    return;
+  }
+
+  refs.topStatus.textContent = `Saved to ${result.filePath}`;
+  refs.topStatus.dataset.variant = 'success';
+});
 
 refs.modeButtons.forEach((button) => {
   button.addEventListener('click', () => vm?.setMode(button.dataset.mode));

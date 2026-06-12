@@ -74,6 +74,39 @@ test('compression view model supports removing and clearing files', () => {
   assert.equal(latest.canCompress, false);
 });
 
+test('compression view model marks batch-ready state as warning', () => {
+  const vm = createCompressionViewModel();
+  let latest;
+
+  vm.subscribe((state) => {
+    latest = state;
+  });
+
+  vm.addFiles([
+    { name: 'one.pdf', size: 2_000_000, type: 'application/pdf' },
+    { name: 'two.pdf', size: 3_000_000, type: 'application/pdf' },
+  ]);
+
+  assert.equal(latest.status.variant, 'warning');
+  assert.equal(latest.status.top, 'Batch mode ready');
+  assert.equal(latest.status.batch, 'Batch compression ready');
+});
+
+test('compression view model surfaces an error for invalid file types', () => {
+  const vm = createCompressionViewModel();
+  let latest;
+
+  vm.subscribe((state) => {
+    latest = state;
+  });
+
+  vm.addFiles([{ name: 'notes.txt', size: 1_000, type: 'text/plain' }]);
+
+  assert.equal(latest.status.variant, 'error');
+  assert.equal(latest.status.top, 'Action needed');
+  assert.equal(latest.error, 'Only PDF files are accepted.');
+});
+
 test('compression view model exposes the preset catalog and applies preset factors', () => {
   const vm = createCompressionViewModel();
   let latest;
@@ -160,6 +193,8 @@ test('compression view model completes a single-file compression flow', () => {
   assert.equal(latest.result.count, 1);
   assert.equal(latest.status.top, 'Ready to export');
   assert.equal(vm.exportResult().type, 'pdf');
+  assert.equal(vm.exportResult().suggestedName.endsWith('-compressed.pdf'), true);
+  assert.equal(vm.exportResult().bytes.length > 0, true);
   assert.equal(latest.canExport, true);
 });
 
@@ -182,5 +217,7 @@ test('compression view model exports a zip for batch compression', () => {
 
   assert.equal(latest.result.count, 2);
   assert.equal(vm.exportResult().type, 'zip');
+  assert.equal(vm.exportResult().suggestedName.endsWith('.zip'), true);
+  assert.equal(vm.exportResult().bytes.length > 0, true);
   assert.equal(latest.files.every((file) => file.displayStatus === 'Done'), true);
 });
