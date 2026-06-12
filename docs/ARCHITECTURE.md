@@ -2,53 +2,60 @@
 
 ## Purpose
 
-This project is a lightweight scaffold for Spec Driven Development combined with Agile.
+PDF-Fasi is a local-first desktop application for working with PDF files.
+The first release focuses on compression, with future PDF workflows added
+incrementally.
 
-## Core Design
+## Chosen Stack
 
-- Markdown-first documentation.
-- Specs separated by functionality and epic.
-- Small, reusable skills instead of large prompts.
-- Lean context loading: each agent reads only what it needs.
-- Docs are the source of truth.
-- A tiny curated `skills/` set covers clarification, architecture, and TDD.
-- Verification happens inside `Implement`, so testing is not a separate sprint phase.
-- Optional skills can be used inside `Spec`, `Plan`, `Tasks`, or `Implement` when they fit the current phase.
-- Skills can be installed as `none`, `manual`, or `auto`, but only when the user opts in.
-- External capabilities are added through MCP when needed.
+- Desktop shell: Electron.
+- UI stack: HTML, CSS, and JavaScript.
+- Runtime split:
+  - Main process for app lifecycle, native integration, and file orchestration.
+  - Renderer process for the user interface.
+  - Preload layer for a narrow, controlled bridge between UI and native APIs.
 
-## Repository Layers
+## Core Principles
 
-- `AGENTS.md`: constitution and navigation rules for agents.
-- `docs/`: architecture and roadmap.
-- `specs/`: project-wide specs plus per-epic specs, plans, and tasks.
-- `skills/`: optional reusable agent helpers, kept small.
-- MCP integrations: optional tools for external systems.
+- Keep the app lightweight in behavior even if the desktop shell is not the
+  smallest possible option.
+- Keep all PDF processing local on the user's machine.
+- Prefer simple, well-documented flows over complex abstractions.
+- Design for usability and accessibility first.
+- Add features iteratively, starting with compression.
 
-## Workflow Model
+## Data And Storage
 
-```mermaid
-flowchart LR
-  A[Spec] --> B[Plan]
-  B[Plan] --> C[Tasks]
-  C[Tasks] --> D[Implement]
-  D[Implement] --> E[Review]
-  E[Review] --> F[Update docs]
-  F[Update docs] --> A
-```
+- No database is required for the initial scope.
+- Store only small local application data when needed, such as user settings or
+  recent items.
+- Keep document handling file-based and local.
 
-### Phase Contract
+## PDF Processing
 
-- `Spec`: define the problem, the goal, and the user stories.
-- `Plan`: order the user stories and record delivery decisions.
-- `Tasks`: split each user story into small, trackable tasks.
-- `Implement`: build the smallest useful change and verify it as you go.
-- `Review`: check the result against the docs and close the epic when it is ready.
+- PDF compression is the first production feature.
+- Processing happens locally and should be isolated from the UI layer.
+- Future features such as merge, split, conversion, and simple editing should
+  reuse the same local processing approach.
 
-Each phase leaves enough context for the next one to continue without guessing.
+## Packaging
 
-## Governance
+- Target Windows first, while keeping macOS support in scope.
+- Package the app as a desktop installer or distributable build suitable for
+  end users on each platform.
+- Keep release packaging simple at the start and refine it as the product grows.
 
-- Developers own Git flow and release decisions.
-- Agents can assist with planning, implementation, verification, and review.
-- Any meaningful scope or behavior change must be reflected in docs first.
+## Developer Practices
+
+- Use a small Electron codebase with clear separation between UI and
+  application logic.
+- Keep the preload bridge minimal and explicit.
+- Favor incremental changes that can be verified quickly.
+- Document any future architectural change before implementing it.
+
+## Open Decisions
+
+- The exact PDF compression engine is not decided yet.
+- The packaging toolchain is not finalized yet.
+- A richer persistence layer may be added later if features require it.
+
