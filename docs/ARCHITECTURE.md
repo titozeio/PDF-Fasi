@@ -10,6 +10,7 @@ incrementally.
 
 - Desktop shell: Electron.
 - UI stack: HTML, CSS, and JavaScript.
+- UI pattern: MVVM.
 - Runtime split:
   - Main process for app lifecycle, native integration, and file orchestration.
   - Renderer process for the user interface.
@@ -52,6 +53,8 @@ incrementally.
 
 - Use a small Electron codebase with clear separation between UI and
   application logic.
+- Organize the presentation layer with MVVM so the UI stays reactive and the
+  business logic stays separated from the view.
 - Keep the preload bridge minimal and explicit.
 - Favor incremental changes that can be verified quickly.
 - Document any future architectural change before implementing it.
