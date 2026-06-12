@@ -7,7 +7,7 @@ compression experience with a simple, attractive, and usable desktop interface.
 
 ## Status
 
-`spec`
+`tasks`
 
 ## User Stories
 
@@ -47,4 +47,3 @@ process is advancing.
 - UX/UI polish is part of the epic definition.
 - The compression engine and exact parameter set may still evolve during
   implementation, but the user-facing behavior should stay simple.
-

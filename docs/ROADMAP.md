@@ -13,7 +13,7 @@ Status legend:
 | ID    | Name               | Objective                                                                                                                                                              | Status    | Finished |
 | ----- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | -------- |
 | EPIC0 | First product epic | Create the basic foundation of the project: agents constitution, initial specs, architecture and initial roadmap so the project can start normal SDD Sprint execution. | done | 2026-06-12 |
-| EPIC1 | PDF compression MVP | Deliver the first polished vertical slice of the product: local PDF compression with a simple, attractive and usable desktop experience. | plan |          |
+| EPIC1 | PDF compression MVP | Deliver the first polished vertical slice of the product: local PDF compression with a simple, attractive and usable desktop experience. | tasks |          |
 | EPIC2 | Merge and split PDFs | Add local PDF merge and split workflows as a finished feature slice with matching UI/UX polish. | new |          |
 | EPIC3 | PDF conversion | Add conversion to and from other formats as a finished feature slice, keeping the local-first desktop workflow. | new |          |
 | EPIC4 | Simple PDF editing | Add simple in-app PDF editing as a polished, limited-scope feature slice. | new |          |
