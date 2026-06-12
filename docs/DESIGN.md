@@ -97,11 +97,18 @@ Typography rules:
 
 - Use compact selectable chips or segmented options.
 - The active preset must be visually obvious.
+- Use the preset labels `Print`, `Ebook`, and `Screen`.
+- `Print` should communicate lower compression and higher quality.
+- `Ebook` should communicate the balanced middle ground.
+- `Screen` should communicate higher compression and smaller output.
 
 ### Custom Panel
 
 - Hide advanced controls until the custom mode is selected.
 - Group related parameters together and avoid overwhelming the user.
+- The custom panel should expose JPEG quality, maximum image resolution,
+  grayscale conversion, and page scale factor.
+- Keep the page scale factor as a slider plus numeric input.
 
 ### Progress Area
 
@@ -213,4 +220,3 @@ The MVP opens directly into this screen.
 - Use progressive disclosure for custom controls.
 - Prefer visible text labels over icon-only controls.
 - Keep the screen readable when only one file is selected and when several are.
-

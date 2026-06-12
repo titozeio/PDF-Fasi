@@ -64,24 +64,24 @@
           </div>
 
           <div class="mode-switch" role="tablist" aria-label="Compression mode">
-            <button class="mode-chip active" data-mode="fast" type="button">Fast</button>
-            <button class="mode-chip" data-mode="balanced" type="button">Balanced</button>
-            <button class="mode-chip" data-mode="high" type="button">High Quality</button>
+            <button class="mode-chip" data-mode="print" type="button">Print</button>
+            <button class="mode-chip active" data-mode="ebook" type="button">Ebook</button>
+            <button class="mode-chip" data-mode="screen" type="button">Screen</button>
             <button class="mode-chip" data-mode="custom" type="button">Custom</button>
           </div>
 
           <div class="preset-grid" id="preset-grid">
-            <article class="preset-card" data-mode="fast">
-              <span class="preset-name">Fast</span>
-              <p>Best for quick results and smaller files.</p>
+            <article class="preset-card" data-mode="print">
+              <span class="preset-name">Print</span>
+              <p>Low compression for print-friendly quality.</p>
             </article>
-            <article class="preset-card active" data-mode="balanced">
-              <span class="preset-name">Balanced</span>
-              <p>Good compression with a nice quality balance.</p>
+            <article class="preset-card active" data-mode="ebook">
+              <span class="preset-name">Ebook</span>
+              <p>Balanced compression for everyday use.</p>
             </article>
-            <article class="preset-card" data-mode="high">
-              <span class="preset-name">High Quality</span>
-              <p>Preserve more detail while still reducing size.</p>
+            <article class="preset-card" data-mode="screen">
+              <span class="preset-name">Screen</span>
+              <p>High compression for smaller, screen-focused output.</p>
             </article>
           </div>
 
@@ -96,26 +96,44 @@
 
             <label class="field">
               <div class="field-head">
-                <span>Image compression</span>
-                <strong id="image-value">70%</strong>
+                <span>JPEG Quality</span>
+                <strong id="jpeg-value">75%</strong>
               </div>
-              <input id="image-range" type="range" min="20" max="100" value="70" />
+              <input id="jpeg-range" type="range" min="10" max="100" step="5" value="75" />
             </label>
 
             <label class="field">
               <div class="field-head">
-                <span>Resolution</span>
+                <span>Maximum image resolution</span>
                 <strong id="resolution-value">150 dpi</strong>
               </div>
-              <input id="resolution-range" type="range" min="72" max="300" value="150" />
+              <select id="resolution-select">
+                <option value="72">72 dpi</option>
+                <option value="100">100 dpi</option>
+                <option value="150" selected>150 dpi</option>
+                <option value="200">200 dpi</option>
+                <option value="300">300 dpi</option>
+                <option value="keep-original">Keep original</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Convert images to grayscale</span>
+              <div class="toggle-row">
+                <input id="grayscale-checkbox" type="checkbox" />
+                <span class="toggle-copy">Use grayscale when it helps reduce size</span>
+              </div>
             </label>
 
             <label class="field">
               <div class="field-head">
-                <span>Target size</span>
-                <strong id="size-value">50%</strong>
+                <span>Page scale factor</span>
+                <strong id="scale-value">100%</strong>
               </div>
-              <input id="size-range" type="range" min="20" max="90" value="50" />
+              <div class="scale-control">
+                <input id="scale-range" type="range" min="10" max="200" step="5" value="100" />
+                <input id="scale-input" type="number" min="10" max="200" step="5" value="100" />
+              </div>
             </label>
           </div>
 

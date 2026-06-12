@@ -394,6 +394,38 @@ input[type="range"] {
   accent-color: var(--primary);
 }
 
+select,
+input[type="number"] {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.toggle-copy {
+  color: var(--text-secondary);
+}
+
+.scale-control {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 110px;
+  gap: 12px;
+  align-items: center;
+}
+
 .actions-block {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;

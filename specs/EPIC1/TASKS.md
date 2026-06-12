@@ -25,18 +25,18 @@ Status legend:
 
 ## US3: As a user, I want to select more than one PDF at a time so that I can compress files in batch
 
-[ ] [T5] Implement local file selection for single and multiple PDF inputs.
-[ ] [T6] Render the selected file list and basic file management feedback in the compression screen.
+[T] [T5] Implement local file selection for single and multiple PDF inputs.
+[T] [T6] Render the selected file list and basic file management feedback in the compression screen.
 
 ## US4: As a user, I want to choose from a few compression presets so that I can use the app without dealing with complex parameters
 
-[ ] [T7] Define a small preset set for compression and connect it to the feature state.
-[ ] [T8] Add preset selection controls and apply the chosen preset to the compression flow.
+[T] [T7] Define a small preset set for compression and connect it to the feature state.
+[T] [T8] Add preset selection controls and apply the chosen preset to the compression flow.
 
 ## US5: As a user, I want a custom compression mode with advanced parameters so that I can tune the output when I need more control
 
-[ ] [T9] Design and implement the custom compression panel with advanced parameters.
-[ ] [T10] Validate and map custom parameters into the compression job configuration.
+[T] [T9] Design and implement the custom compression panel with advanced parameters.
+[T] [T10] Validate and map custom parameters into the compression job configuration.
 
 ## US7: As a user, I want to see compression progress so that I know how the process is advancing
 

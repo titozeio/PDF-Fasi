@@ -28,12 +28,14 @@ const refs = {
   customPanel: document.getElementById('custom-panel'),
   modeButtons: Array.from(document.querySelectorAll('.mode-chip')),
   presetCards: Array.from(document.querySelectorAll('.preset-card')),
-  imageRange: document.getElementById('image-range'),
-  resolutionRange: document.getElementById('resolution-range'),
-  sizeRange: document.getElementById('size-range'),
-  imageValue: document.getElementById('image-value'),
+  jpegRange: document.getElementById('jpeg-range'),
+  resolutionSelect: document.getElementById('resolution-select'),
+  grayscaleCheckbox: document.getElementById('grayscale-checkbox'),
+  scaleRange: document.getElementById('scale-range'),
+  scaleInput: document.getElementById('scale-input'),
+  jpegValue: document.getElementById('jpeg-value'),
   resolutionValue: document.getElementById('resolution-value'),
-  sizeValue: document.getElementById('size-value'),
+  scaleValue: document.getElementById('scale-value'),
 };
 
 function render(state) {
@@ -55,9 +57,16 @@ function render(state) {
   refs.resultCopy.textContent = state.result
     ? `Compression complete. ${state.result.count > 1 ? 'ZIP export ready.' : 'PDF export ready.'}`
     : 'Compressed files will appear here after processing.';
-  refs.imageValue.textContent = `${state.custom.imageCompression}%`;
-  refs.resolutionValue.textContent = `${state.custom.resolution} dpi`;
-  refs.sizeValue.textContent = `${state.custom.targetSize}%`;
+  refs.jpegValue.textContent = `${state.custom.jpegQuality}%`;
+  refs.resolutionValue.textContent = state.custom.maxImageResolution === 'keep-original'
+    ? 'Keep original'
+    : `${state.custom.maxImageResolution} dpi`;
+  refs.scaleValue.textContent = `${state.custom.pageScaleFactor}%`;
+  refs.jpegRange.value = String(state.custom.jpegQuality);
+  refs.resolutionSelect.value = String(state.custom.maxImageResolution);
+  refs.grayscaleCheckbox.checked = state.custom.convertToGrayscale;
+  refs.scaleRange.value = String(state.custom.pageScaleFactor);
+  refs.scaleInput.value = String(state.custom.pageScaleFactor);
 
   refs.modeButtons.forEach((button) => {
     const active = button.dataset.mode === state.mode;
@@ -138,12 +147,25 @@ refs.presetCards.forEach((card) => {
   card.addEventListener('click', () => vm?.setMode(card.dataset.mode));
 });
 
-[refs.imageRange, refs.resolutionRange, refs.sizeRange].forEach((input) => {
-  input.addEventListener('input', () => {
-    vm?.updateCustom({
-      imageCompression: Number(refs.imageRange.value),
-      resolution: Number(refs.resolutionRange.value),
-      targetSize: Number(refs.sizeRange.value),
-    });
-  });
+refs.jpegRange.addEventListener('input', () => {
+  vm?.updateCustom({ jpegQuality: Number(refs.jpegRange.value) });
+});
+
+refs.resolutionSelect.addEventListener('change', () => {
+  const value = refs.resolutionSelect.value === 'keep-original'
+    ? 'keep-original'
+    : Number(refs.resolutionSelect.value);
+  vm?.updateCustom({ maxImageResolution: value });
+});
+
+refs.grayscaleCheckbox.addEventListener('change', () => {
+  vm?.updateCustom({ convertToGrayscale: refs.grayscaleCheckbox.checked });
+});
+
+refs.scaleRange.addEventListener('input', () => {
+  vm?.setPageScaleFactor(Number(refs.scaleRange.value));
+});
+
+refs.scaleInput.addEventListener('change', () => {
+  vm?.setPageScaleFactor(refs.scaleInput.value);
 });
