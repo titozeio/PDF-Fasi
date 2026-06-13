@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF-Fasi</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">PDF-Fasi</p>
+          <h1>Compress PDFs with a calm, fast workflow.</h1>
+        </div>
+        <div class="status-pill" id="top-status">Local processing only</div>
+      </header>
+
+      <main class="workspace">
+        <section class="panel panel-input">
+          <div class="panel-head">
+            <div>
+              <h2>Add files</h2>
+              <p>Drag and drop PDFs here or pick them from your device.</p>
+            </div>
+            <button class="secondary-btn" id="browse-btn" type="button">Add PDFs</button>
+            <input id="file-input" type="file" accept="application/pdf,.pdf" multiple hidden />
+          </div>
+
+          <div class="dropzone" id="dropzone">
+            <div class="dropzone-icon">PDF</div>
+            <div>
+              <h3>Drop files here</h3>
+              <p>Select one PDF or many. The app will handle both single and batch flows.</p>
+            </div>
+          </div>
+
+          <div class="summary-strip">
+            <div>
+              <span class="summary-label">Files selected</span>
+              <strong id="file-count">0</strong>
+            </div>
+            <div>
+              <span class="summary-label">Input size</span>
+              <strong id="total-size">0 MB</strong>
+            </div>
+            <button class="link-btn" id="clear-btn" type="button">Clear list</button>
+          </div>
+
+          <div class="file-list" id="file-list">
+            <div class="empty-state">
+              <h3>No PDFs loaded yet</h3>
+              <p>Your selection will appear here with file size, status, and remove actions.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel panel-controls">
+          <div class="panel-head">
+            <div>
+              <h2>Compression settings</h2>
+              <p>Choose a preset or switch to custom controls.</p>
+            </div>
+          </div>
+
+          <div class="mode-switch" role="tablist" aria-label="Compression mode">
+            <button class="mode-chip" data-mode="print" type="button">Print</button>
+            <button class="mode-chip active" data-mode="ebook" type="button">Ebook</button>
+            <button class="mode-chip" data-mode="screen" type="button">Screen</button>
+            <button class="mode-chip" data-mode="custom" type="button">Custom</button>
+          </div>
+
+          <div class="preset-grid" id="preset-grid">
+            <article class="preset-card" data-mode="print">
+              <span class="preset-name">Print</span>
+              <p>Low compression for print-friendly quality.</p>
+            </article>
+            <article class="preset-card active" data-mode="ebook">
+              <span class="preset-name">Ebook</span>
+              <p>Balanced compression for everyday use.</p>
+            </article>
+            <article class="preset-card" data-mode="screen">
+              <span class="preset-name">Screen</span>
+              <p>High compression for smaller, screen-focused output.</p>
+            </article>
+          </div>
+
+          <div class="custom-panel hidden" id="custom-panel">
+            <div class="custom-head">
+              <div>
+                <h3>Custom compression</h3>
+                <p>Only the essential controls are shown here.</p>
+              </div>
+              <span class="inline-badge">Advanced</span>
+            </div>
+
+            <label class="field">
+              <div class="field-head">
+                <span>JPEG Quality</span>
+                <strong id="jpeg-value">75%</strong>
+              </div>
+              <input id="jpeg-range" type="range" min="10" max="100" step="5" value="75" />
+            </label>
+
+            <label class="field">
+              <div class="field-head">
+                <span>Maximum image resolution</span>
+                <strong id="resolution-value">150 dpi</strong>
+              </div>
+              <select id="resolution-select">
+                <option value="72">72 dpi</option>
+                <option value="100">100 dpi</option>
+                <option value="150" selected>150 dpi</option>
+                <option value="200">200 dpi</option>
+                <option value="300">300 dpi</option>
+                <option value="keep-original">Keep original</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Convert images to grayscale</span>
+              <div class="toggle-row">
+                <input id="grayscale-checkbox" type="checkbox" />
+                <span class="toggle-copy">Use grayscale when it helps reduce size</span>
+              </div>
+            </label>
+
+            <label class="field">
+              <div class="field-head">
+                <span>Page scale factor</span>
+                <strong id="scale-value">100%</strong>
+              </div>
+              <div class="scale-control">
+                <input id="scale-range" type="range" min="10" max="200" step="5" value="100" />
+                <input id="scale-input" type="number" min="10" max="200" step="5" value="100" />
+              </div>
+            </label>
+          </div>
+
+          <div class="actions-block">
+            <button class="primary-btn" id="compress-btn" type="button">Compress PDFs</button>
+          </div>
+
+          <div class="progress-panel">
+            <div class="progress-head">
+              <div>
+                <h3>Progress</h3>
+                <p id="status-text">Waiting for files.</p>
+              </div>
+              <strong id="progress-label">0%</strong>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-meta">
+              <span id="batch-meta">No batch running</span>
+              <span id="eta-meta">Ready</span>
+            </div>
+          </div>
+
+          <div class="result-panel">
+            <div>
+              <h3>Result</h3>
+              <p id="result-copy">Compressed files will appear here after processing.</p>
+            </div>
+            <div class="result-actions">
+              <div class="result-stats">
+                <span>Before</span>
+                <strong id="before-size">0 MB</strong>
+              </div>
+              <div class="result-stats">
+                <span>After</span>
+                <strong id="after-size">0 MB</strong>
+              </div>
+            </div>
+            <button class="secondary-btn" id="export-btn" type="button" disabled>Export output</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./renderer.js"></script>
+  </body>
+</html>

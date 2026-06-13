@@ -1,0 +1,14 @@
+{
+  "name": "pdf-fasi",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Desktop PDF utility focused on local compression",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "electron": "*"
+  }
+}
