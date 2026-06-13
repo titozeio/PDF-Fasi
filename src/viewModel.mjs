@@ -52,6 +52,28 @@ function getPresetCopy(mode) {
 }
 
 /**
+ * Map a display label to a file-status variant for the renderer.
+ * @param {string} value
+ * @returns {'ready' | 'queued' | 'processing' | 'done' | 'error' | 'neutral'}
+ */
+function getStatusVariant(value) {
+  switch (value) {
+    case 'Ready':
+      return 'ready';
+    case 'Queued':
+      return 'queued';
+    case 'Processing':
+      return 'processing';
+    case 'Done':
+      return 'done';
+    case 'Error':
+      return 'error';
+    default:
+      return 'neutral';
+  }
+}
+
+/**
  * Clamp and normalize a page scale factor input.
  * @param {number | string} value
  * @param {number} fallback
@@ -266,7 +288,6 @@ function buildZipBytes(entries) {
  *   setMode: (mode: 'print' | 'ebook' | 'screen' | 'custom') => void,
  *   updateCustom: (partial: { jpegQuality?: number, maxImageResolution?: number | 'keep-original', convertToGrayscale?: boolean }) => void,
  *   setPageScaleFactor: (value: number | string) => void,
- *   togglePreview: () => void,
  *   compress: () => void,
  *   exportResult: () => { type: 'zip' | 'pdf', label: string } | null,
  * }}
@@ -290,9 +311,6 @@ export function createCompressionViewModel(options = {}) {
       convertToGrayscale: false,
       pageScaleFactor: 100,
       pageScaleFactorLastValid: 100,
-    },
-    ui: {
-      previewOpen: false,
     },
   };
 
@@ -319,21 +337,25 @@ export function createCompressionViewModel(options = {}) {
       : 0;
 
     return {
-      files: state.files.map((file, index) => ({
-        ...file,
-        displayStatus: state.isProcessing
+      files: state.files.map((file, index) => {
+        const displayStatus = state.isProcessing
           ? state.progress >= ((index + 1) / state.files.length) * 100
             ? 'Done'
             : state.progress > (index / state.files.length) * 100
               ? 'Processing'
               : 'Queued'
-          : file.status,
-      })),
+          : file.status;
+
+        return {
+          ...file,
+          displayStatus,
+          statusVariant: getStatusVariant(displayStatus),
+        };
+      }),
       mode: state.mode,
       isProcessing: state.isProcessing,
       progress: state.progress,
       custom: { ...state.custom },
-      ui: { ...state.ui },
       summary: {
         count: state.files.length,
         totalSize: total,
@@ -507,14 +529,6 @@ export function createCompressionViewModel(options = {}) {
   }
 
   /**
-   * Toggle the lightweight preview state used by the screen shell.
-   */
-  function togglePreview() {
-    state.ui.previewOpen = !state.ui.previewOpen;
-    notify();
-  }
-
-  /**
    * Start the simulated compression flow for the selected files.
    */
   function compress() {
@@ -618,7 +632,6 @@ export function createCompressionViewModel(options = {}) {
     setMode,
     updateCustom,
     setPageScaleFactor,
-    togglePreview,
     compress,
     exportResult,
   };

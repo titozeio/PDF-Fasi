@@ -6,10 +6,6 @@ This file is the canonical epic template for future `specs/EPICX/` folders.
 
 Create the basic foundation of the project: agents constitution, initial specs, architecture and initial roadmap so the project can start normal SDD Sprint execution.
 
-## Status
-
-`spec`
-
 ## User Stories
 
 **US0**: As a product manager I want to define the basics of the project so that it can be developed following Agile SDD by AI agents and developers.

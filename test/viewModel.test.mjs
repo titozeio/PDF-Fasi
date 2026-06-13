@@ -35,6 +35,7 @@ test('compression view model accepts files and updates selection state', () => {
   ]);
 
   assert.equal(latest.files.length, 1);
+  assert.equal(latest.files[0].statusVariant, 'ready');
   assert.equal(latest.summary.count, 1);
   assert.equal(latest.status.text, '1 file ready for compression.');
   assert.equal(latest.canCompress, true);
@@ -220,4 +221,5 @@ test('compression view model exports a zip for batch compression', () => {
   assert.equal(vm.exportResult().suggestedName.endsWith('.zip'), true);
   assert.equal(vm.exportResult().bytes.length > 0, true);
   assert.equal(latest.files.every((file) => file.displayStatus === 'Done'), true);
+  assert.equal(latest.files.every((file) => file.statusVariant === 'done'), true);
 });

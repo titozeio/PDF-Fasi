@@ -25,6 +25,7 @@ html,
 body {
   margin: 0;
   min-height: 100%;
+  height: 100%;
 }
 
 body {
@@ -34,6 +35,7 @@ body {
     radial-gradient(circle at top left, rgba(15, 118, 110, 0.14), transparent 35%),
     radial-gradient(circle at bottom right, rgba(231, 111, 81, 0.12), transparent 30%),
     var(--bg);
+  overflow: auto;
 }
 
 button,
@@ -47,8 +49,11 @@ button {
 }
 
 .app-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
   min-height: 100vh;
-  padding: 28px;
+  padding: 20px;
 }
 
 .topbar {
@@ -56,7 +61,6 @@ button {
   align-items: flex-start;
   justify-content: space-between;
   gap: 24px;
-  margin-bottom: 24px;
 }
 
 .eyebrow {
@@ -133,21 +137,29 @@ p {
 }
 
 .workspace {
+  flex: 1;
+  min-height: 0;
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(380px, 0.92fr);
-  gap: 24px;
+  gap: 20px;
 }
 
 .panel {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 22px;
+  gap: 16px;
+  min-height: 0;
+  padding: 20px;
   border-radius: var(--radius);
   border: 1px solid rgba(215, 222, 231, 0.9);
   background: rgba(255, 255, 255, 0.82);
   box-shadow: var(--shadow);
   backdrop-filter: blur(18px);
+}
+
+.panel-input,
+.panel-controls {
+  overflow: visible;
 }
 
 .panel-head {
@@ -189,8 +201,8 @@ p {
 .summary-strip {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  padding: 16px;
+  gap: 10px;
+  padding: 14px;
   border-radius: 16px;
   background: var(--surface-alt);
 }
@@ -209,9 +221,13 @@ p {
 }
 
 .file-list {
+  flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+  overflow: auto;
+  padding-right: 2px;
 }
 
 .file-row,
@@ -232,9 +248,37 @@ p {
 .file-row {
   display: grid;
   grid-template-columns: 1fr auto auto;
-  gap: 14px;
+  gap: 12px;
   align-items: center;
-  padding: 16px 18px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(215, 222, 231, 0.9);
+}
+
+.file-row[data-status="ready"],
+.file-row[data-status="neutral"] {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(233, 238, 243, 0.78));
+  border-color: rgba(215, 222, 231, 0.95);
+}
+
+.file-row[data-status="queued"] {
+  background: linear-gradient(180deg, rgba(255, 248, 230, 0.95), rgba(255, 244, 214, 0.82));
+  border-color: rgba(217, 119, 6, 0.24);
+}
+
+.file-row[data-status="processing"] {
+  background: linear-gradient(180deg, rgba(239, 252, 250, 0.96), rgba(220, 246, 242, 0.84));
+  border-color: rgba(15, 118, 110, 0.22);
+}
+
+.file-row[data-status="done"] {
+  background: linear-gradient(180deg, rgba(236, 253, 243, 0.96), rgba(218, 248, 229, 0.84));
+  border-color: rgba(21, 128, 61, 0.22);
+}
+
+.file-row[data-status="error"] {
+  background: linear-gradient(180deg, rgba(254, 242, 242, 0.96), rgba(254, 226, 226, 0.84));
+  border-color: rgba(220, 38, 38, 0.22);
 }
 
 .file-main {
@@ -254,12 +298,44 @@ p {
 
 .file-status {
   justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
   font-size: 0.86rem;
   font-weight: 600;
-  color: var(--primary);
-  background: rgba(15, 118, 110, 0.08);
   padding: 8px 12px;
   border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(215, 222, 231, 0.9);
+}
+
+.file-status[data-status="ready"],
+.file-status[data-status="neutral"] {
+  color: var(--text-secondary);
+}
+
+.file-status[data-status="queued"] {
+  color: #9a6700;
+  background: rgba(255, 248, 230, 0.92);
+  border-color: rgba(217, 119, 6, 0.2);
+}
+
+.file-status[data-status="processing"] {
+  color: var(--primary);
+  background: rgba(239, 252, 250, 0.92);
+  border-color: rgba(15, 118, 110, 0.2);
+}
+
+.file-status[data-status="done"] {
+  color: var(--success);
+  background: rgba(236, 253, 243, 0.92);
+  border-color: rgba(21, 128, 61, 0.2);
+}
+
+.file-status[data-status="error"] {
+  color: var(--error);
+  background: rgba(254, 242, 242, 0.92);
+  border-color: rgba(220, 38, 38, 0.2);
 }
 
 .icon-btn,
@@ -328,7 +404,7 @@ p {
 .mode-switch {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
+  gap: 8px;
 }
 
 .mode-chip {
@@ -349,16 +425,16 @@ p {
 .preset-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  gap: 10px;
 }
 
 .preset-card {
-  padding: 16px;
-  min-height: 120px;
+  padding: 14px;
+  min-height: 108px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 10px;
+  gap: 8px;
   cursor: pointer;
 }
 
@@ -379,7 +455,7 @@ p {
 }
 
 .custom-panel {
-  padding: 18px;
+  padding: 16px;
 }
 
 .custom-panel.hidden {
@@ -398,8 +474,8 @@ p {
 .field {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 16px;
+  gap: 8px;
+  margin-top: 14px;
 }
 
 .field-head {
@@ -447,14 +523,16 @@ input[type="number"] {
 }
 
 .actions-block {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 12px;
+  display: block;
+}
+
+.actions-block .primary-btn {
+  width: 100%;
 }
 
 .progress-panel,
 .result-panel {
-  padding: 18px;
+  padding: 16px;
 }
 
 .progress-bar {
@@ -462,7 +540,7 @@ input[type="number"] {
   border-radius: 999px;
   background: var(--surface-alt);
   overflow: hidden;
-  margin: 16px 0 12px;
+  margin: 14px 0 10px;
 }
 
 .progress-fill {
@@ -484,7 +562,7 @@ input[type="number"] {
 .result-panel {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
 .result-stats {
@@ -509,6 +587,8 @@ input[type="number"] {
 
 @media (max-width: 720px) {
   .app-shell {
+    height: auto;
+    min-height: 100vh;
     padding: 16px;
   }
 
@@ -522,8 +602,7 @@ input[type="number"] {
 
   .summary-strip,
   .mode-switch,
-  .preset-grid,
-  .actions-block {
+  .preset-grid {
     grid-template-columns: 1fr;
   }
 

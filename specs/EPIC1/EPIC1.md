@@ -5,10 +5,6 @@
 Deliver the first polished vertical slice of the product: a local PDF
 compression experience with a simple, attractive, and usable desktop interface.
 
-## Status
-
-`review`
-
 ## User Stories
 
 **US1**: As a user, I want a modern, intuitive, and usable compression UI so
@@ -42,6 +38,10 @@ process is advancing.
 - Provide a small set of presets plus one custom mode.
 - Support result export for single and multiple inputs.
 - Show progress and clear feedback during processing.
+- Keep the compression screen responsive for desktop use, including smaller
+  1080p monitor layouts without forcing page-level vertical scroll in the
+  normal working state.
+- Use clear color-coded file status feedback during processing.
 
 ## Notes
 
@@ -51,3 +51,5 @@ process is advancing.
   the compression workflow.
 - The compression engine and exact parameter set may still evolve during
   implementation, but the user-facing behavior should stay simple.
+- Any placeholder control in the screen shell must have a clear purpose before
+  it is kept in the UI.

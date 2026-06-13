@@ -3,14 +3,18 @@
 ## Status
 `closed`
 
-Status legend:
+## Task prefixes legend:
 
 - `[ ]` pending
 - `[-]` in progress
-- `[T]` ready for review
-- `[R]` in review
-- `[x]` done
 - `[!]` blocked
+- `[<]` ready for review
+- `[>]` review in progress
+- `[x]` done
+
+
+`[Tn]` (after the status, for example, [ ] [T0]) : is the id of the task. (In the example, the id would be `T0`) 
+`[Blocked by]` (list of task ids) : indicates which tasks are blocking this task (if any). (For example, `[Blocked by T0]`). 
 
 ## US0: As a product manager I want to define the basics of the project so that it can be developed following Agile SDD by AI agents and developers
 

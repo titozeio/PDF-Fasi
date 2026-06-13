@@ -73,6 +73,10 @@ Typography rules:
 - Use cards and panels with clear separation instead of crowded borders.
 - Keep the main workflow in a single dominant view.
 - Reserve secondary panels for presets, custom controls, and results.
+- The compression screen should fit a full 1080p desktop viewport without
+  forcing page-level vertical scroll in the normal working state.
+- When content needs to grow, prefer internal scrolling for lists or panels
+  over making the whole window scroll.
 
 ## Components
 
@@ -92,6 +96,9 @@ Typography rules:
 - Show file name, size, and status.
 - Keep actions compact and predictable.
 - Make row-level feedback visible during processing.
+- Status pills should use color-coded variants for `Ready`, `Queued`,
+  `Processing`, `Done`, and `Error` states.
+- Status feedback must remain readable if color is not perceived clearly.
 
 ### Preset Chip
 

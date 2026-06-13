@@ -14,7 +14,6 @@ const refs = {
   fileCount: document.getElementById('file-count'),
   totalSize: document.getElementById('total-size'),
   compressBtn: document.getElementById('compress-btn'),
-  previewBtn: document.getElementById('preview-btn'),
   exportBtn: document.getElementById('export-btn'),
   statusText: document.getElementById('status-text'),
   progressFill: document.getElementById('progress-fill'),
@@ -53,7 +52,6 @@ function render(state) {
   refs.exportBtn.disabled = !state.canExport;
   refs.compressBtn.disabled = !state.canCompress;
   refs.clearBtn.disabled = !state.canClear;
-  refs.previewBtn.disabled = false;
   refs.customPanel.classList.toggle('hidden', state.mode !== 'custom');
   refs.resultCopy.textContent = state.error
     ? state.error
@@ -94,12 +92,12 @@ function render(state) {
   refs.fileList.innerHTML = state.files
     .map(
       (file) => `
-        <article class="file-row">
+        <article class="file-row" data-status="${file.statusVariant}">
           <div class="file-main">
             <div class="file-name">${file.name}.pdf</div>
             <div class="file-meta">${formatBytes(file.size)} original size</div>
           </div>
-          <div class="file-status">${file.displayStatus}</div>
+          <div class="file-status" data-status="${file.statusVariant}">${file.displayStatus}</div>
           <button class="icon-btn" type="button" data-remove="${file.id}" aria-label="Remove ${file.name}.pdf">x</button>
         </article>
       `,
@@ -139,7 +137,6 @@ refs.dropzone.addEventListener('drop', (event) => {
 
 refs.clearBtn.addEventListener('click', () => vm?.clearFiles());
 refs.compressBtn.addEventListener('click', () => vm?.compress());
-refs.previewBtn.addEventListener('click', () => vm?.togglePreview());
 refs.exportBtn.addEventListener('click', async () => {
   const exportArtifact = vm?.exportResult();
   if (!exportArtifact) return;
