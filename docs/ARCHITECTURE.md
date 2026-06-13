@@ -59,6 +59,19 @@ incrementally.
   business logic stays separated from the view.
 - Keep the preload bridge minimal and explicit.
 - Favor incremental changes that can be verified quickly.
+- Run GitHub Actions CI on `push` and `pull_request` events targeting `main`
+  so the branch stays validated before merge.
+- Publish the documentation site from the repository `docs/` directory on
+  `push` to `main`, with `docs/index.html` acting as the Pages entry point
+  and the current epic docs mirrored into the site for easy browsing.
+- Refresh the `latest` GitHub release from `push` events to `main`, while
+  keeping `pull_request` runs as preview builds of the same release payload.
+- Use `package.json.version` as the release source of truth and bump routine
+  versions automatically as minor releases by default, leaving major jumps to
+  maintainers.
+- Package the first installable release as a Windows-first ZIP bundle so the
+  release workflow stays simple and dependable before introducing heavier
+  installer tooling.
 - Document any future architectural change before implementing it.
 - Follow `docs/DESIGN.md` as the source of truth for visual tokens, layout
   rhythm, and interaction style.

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF-Fasi Docs</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f4f6f8;
+        --surface: rgba(255, 255, 255, 0.92);
+        --surface-alt: #e9eef3;
+        --text: #111827;
+        --muted: #5b6472;
+        --border: #d7dee7;
+        --primary: #0f766e;
+        --primary-hover: #115e59;
+        --accent: #e76f51;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        font-family: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(15, 118, 110, 0.14), transparent 35%),
+          radial-gradient(circle at bottom right, rgba(231, 111, 81, 0.12), transparent 30%),
+          var(--bg);
+      }
+
+      .page {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 32px 20px 48px;
+      }
+
+      .hero {
+        display: grid;
+        gap: 12px;
+        padding: 28px;
+        margin-bottom: 20px;
+        border: 1px solid rgba(215, 222, 231, 0.95);
+        border-radius: 24px;
+        background: var(--surface);
+        box-shadow: 0 18px 50px rgba(16, 24, 40, 0.08);
+      }
+
+      .eyebrow {
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-size: 0.76rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        font-family: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+        font-size: clamp(2.1rem, 3.2vw, 3.4rem);
+        line-height: 1.02;
+        letter-spacing: -0.04em;
+      }
+
+      .hero p,
+      .card p,
+      .note {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .card {
+        padding: 20px;
+        border-radius: 20px;
+        border: 1px solid rgba(215, 222, 231, 0.9);
+        background: var(--surface);
+      }
+
+      .card h2 {
+        margin-bottom: 8px;
+        font-family: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+        font-size: 1.05rem;
+      }
+
+      .link-list {
+        display: grid;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: var(--primary-hover);
+        text-decoration: underline;
+      }
+
+      .doc-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 12px 14px;
+        border-radius: 14px;
+        background: var(--surface-alt);
+        border: 1px solid rgba(215, 222, 231, 0.75);
+      }
+
+      .doc-link span {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      .note {
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-left: 4px solid var(--accent);
+        background: rgba(231, 111, 81, 0.08);
+        border-radius: 14px;
+      }
+
+      @media (max-width: 760px) {
+        .page {
+          padding: 16px;
+        }
+
+        .hero,
+        .card {
+          padding: 18px;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .doc-link {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <p class="eyebrow">PDF-Fasi documentation</p>
+        <h1>Project docs, architecture, design, and roadmap.</h1>
+        <p>
+          This site is the Pages entry point for the repository documentation.
+          It mirrors the canonical docs stored in the repo and keeps the
+          project surface easy to browse.
+        </p>
+      </section>
+
+      <section class="grid" aria-label="Documentation index">
+        <article class="card">
+          <h2>Core docs</h2>
+          <p>Reference material for the product, architecture, and visual system.</p>
+          <div class="link-list">
+            <a class="doc-link" href="./ARCHITECTURE.md"><span>Architecture</span><strong>Open</strong></a>
+            <a class="doc-link" href="./DESIGN.md"><span>Design</span><strong>Open</strong></a>
+            <a class="doc-link" href="./GLOSSARY.md"><span>Glossary</span><strong>Open</strong></a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Delivery docs</h2>
+          <p>Live sprint data and the current project roadmap.</p>
+          <div class="link-list">
+            <a class="doc-link" href="./ROADMAP.md"><span>Roadmap</span><strong>Open</strong></a>
+            <a class="doc-link" href="./specs/EPIC5/EPIC5.md"><span>Current epic spec</span><strong>Open</strong></a>
+            <a class="doc-link" href="./specs/EPIC5/PLAN.md"><span>Current epic plan</span><strong>Open</strong></a>
+          </div>
+        </article>
+      </section>
+
+      <p class="note">
+        GitHub Pages publishes this directory from the `main` branch workflow.
+      </p>
+    </main>
+  </body>
+</html>
