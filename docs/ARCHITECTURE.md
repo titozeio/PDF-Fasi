@@ -65,7 +65,8 @@ incrementally.
   `push` to `main`, with `docs/index.html` acting as the Pages entry point
   and the current epic docs mirrored into the site for easy browsing.
 - Refresh the `latest` GitHub release from `push` events to `main`, while
-  keeping `pull_request` runs as preview builds of the same release payload.
+  keeping `pull_request` runs as preview builds of the same release payload
+  and creating routine tags in the same workflow.
 - Use `package.json.version` as the release source of truth and bump routine
   versions automatically as minor releases by default, leaving major jumps to
   maintainers.
