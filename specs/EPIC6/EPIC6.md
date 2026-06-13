@@ -8,21 +8,22 @@ screen.
 
 ## User Stories
 
-**US1**: As a user, I want a main menu screen, so that I can choose the PDF
-workflow I want to use.
+**US1**: As a user, I want a main menu screen that matches the app visual
+language, so that I can understand the available PDF workflows at a glance.
 
-**US2**: As a user, I want the compression workflow to remain easy to reach
-from the main menu, so that I can continue using the app quickly.
+**US2**: As a user, I want the compression workflow to be the clearly enabled
+primary option in the main menu, so that I can reach the existing feature
+quickly.
 
-**US3**: As a user, I want future PDF workflows to have clear empty entry
-points in the menu, so that the app can grow without confusing navigation.
+**US3**: As a user, I want future PDF workflows to appear as disabled entries
+in the main menu, so that I can see the roadmap without using unavailable
+features.
 
 ## Scope
 
 - Add a main menu as the app entry screen.
 - Keep compression available as a prominent primary option.
-- Reserve space for future PDF workflows without implementing those workflows
-  yet.
+- Reserve space for future PDF workflows without enabling them yet.
 - Keep the menu lightweight, simple, and aligned with the current visual
   language.
 
@@ -30,8 +31,8 @@ points in the menu, so that the app can grow without confusing navigation.
 
 - This epic is about navigation structure, not new PDF processing behavior.
 - The menu should feel like a real product screen, not a placeholder.
-- Future workflow entries should be present as clear destinations, but they do
-  not need to be functional until their epic exists.
+- Future workflow entries should be present as disabled destinations until
+  their epic exists.
 
 ## Related Files
 

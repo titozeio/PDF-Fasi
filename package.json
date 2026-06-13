@@ -1,7 +1,7 @@
 {
   "name": "pdf-fasi",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Desktop PDF utility focused on local compression",
   "main": "src/main.js",
   "scripts": {
