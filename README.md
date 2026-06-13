@@ -7,7 +7,10 @@ Desktop PDF utility focused on fast, local compression.
 - Electron desktop app
 - Direct entry into the compression workflow
 - Local PDF selection, presets, custom controls, progress, and export
-- First epic completed and under review
+- CI, documentation publishing, release automation, and routine tags are set up
+- The latest release now ships a Windows portable executable and a macOS DMG
+  for direct download and launch
+- First two epics are complete and the next epic will add the main app menu
 
 ## Quick Start
 

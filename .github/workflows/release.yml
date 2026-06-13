@@ -16,8 +16,57 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-release:
-    name: Build latest release payload
+  build:
+    name: Build release artifacts
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            build_script: dist:win
+            artifact_name: windows-portable-preview
+            artifact_path: dist/*.exe
+          - os: macos-latest
+            build_script: dist:mac
+            artifact_name: mac-dmg-preview
+            artifact_path: dist/*.dmg
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        shell: bash
+        run: npm ci
+
+      - name: Run tests
+        shell: bash
+        run: npm test
+
+      - name: Build app artifact
+        shell: bash
+        run: npm run ${{ matrix.build_script }}
+
+      - name: Upload preview artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: ${{ matrix.artifact_path }}
+
+  publish:
+    name: Publish latest release
+    if: github.event_name == 'push'
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
@@ -29,64 +78,26 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 20
-          cache: npm
+          node-version: 24
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: npm test
-
-      - name: Prepare release payload
-        run: |
-          rm -rf release-package pdf-fasi-latest-release.zip
-          mkdir -p release-package
-          cp -R src release-package/
-          cp -R docs release-package/
-          cp -R specs release-package/
-          cp README.md release-package/
-          cp package.json release-package/
-          cp package-lock.json release-package/
-          zip -r pdf-fasi-latest-release.zip release-package
-
-      - name: Prepare Windows installable package
-        run: |
-          rm -rf windows-installable pdf-fasi-windows-installable.zip
-          mkdir -p windows-installable
-          cp -R release-package/. windows-installable/
-          cp -R release-package windows-installable/
-          zip -r pdf-fasi-windows-installable.zip windows-installable
-
-      - name: Upload preview artifact
-        if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v7
+      - name: Download release artifacts
+        uses: actions/download-artifact@v8
         with:
-          name: latest-release-preview
-          path: pdf-fasi-latest-release.zip
-
-      - name: Upload installable preview artifact
-        if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v7
-        with:
-          name: windows-installable-preview
-          path: pdf-fasi-windows-installable.zip
+          path: release-assets
+          merge-multiple: true
 
       - name: Publish latest release
-        if: github.event_name == 'push'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: latest
           name: latest-release
-          body: Automatically refreshed from the latest `main` build.
-          files: |
-            pdf-fasi-latest-release.zip
-            pdf-fasi-windows-installable.zip
+          body: Automatically refreshed from the latest main build.
+          files: release-assets/*
           make_latest: true
           overwrite_files: true
 
       - name: Create routine tag
-        if: github.event_name == 'push'
+        shell: bash
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |

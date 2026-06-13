@@ -48,7 +48,8 @@ incrementally.
 
 - Target Windows first, while keeping macOS support in scope.
 - Package the app as a desktop installer or distributable build suitable for
-  end users on each platform.
+  end users on each platform, with a Windows portable executable and a macOS
+  DMG as the first release targets.
 - Keep release packaging simple at the start and refine it as the product grows.
 
 ## Developer Practices
@@ -70,9 +71,10 @@ incrementally.
 - Use `package.json.version` as the release source of truth and bump routine
   versions automatically as minor releases by default, leaving major jumps to
   maintainers.
-- Package the first installable release as a Windows-first ZIP bundle so the
-  release workflow stays simple and dependable before introducing heavier
-  installer tooling.
+- Package the first installable release as a Windows-first portable Electron
+  executable and a macOS DMG so users can download and run the app directly on
+  both supported desktop platforms before introducing heavier installer
+  tooling.
 - Document any future architectural change before implementing it.
 - Follow `docs/DESIGN.md` as the source of truth for visual tokens, layout
   rhythm, and interaction style.
@@ -81,5 +83,6 @@ incrementally.
 ## Open Decisions
 
 - The exact PDF compression engine is not decided yet.
-- The packaging toolchain is not finalized yet.
+- The packaging toolchain is based on Electron Builder, with portable Windows
+  and DMG macOS outputs as the initial targets.
 - A richer persistence layer may be added later if features require it.
