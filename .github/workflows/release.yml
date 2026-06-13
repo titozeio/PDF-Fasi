@@ -22,10 +22,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 20
           cache: npm
@@ -58,14 +60,14 @@ jobs:
 
       - name: Upload preview artifact
         if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: latest-release-preview
           path: pdf-fasi-latest-release.zip
 
       - name: Upload installable preview artifact
         if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: windows-installable-preview
           path: pdf-fasi-windows-installable.zip
@@ -82,3 +84,39 @@ jobs:
             pdf-fasi-windows-installable.zip
           make_latest: true
           overwrite_files: true
+
+      - name: Create routine tag
+        if: github.event_name == 'push'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          LATEST_TAG=$(git tag --list 'v*' --sort=-v:refname | head -n 1)
+
+          CURRENT_MAJOR=${CURRENT_VERSION%%.*}
+          if [ -n "$LATEST_TAG" ]; then
+            LATEST_VERSION=${LATEST_TAG#v}
+            LATEST_MAJOR=${LATEST_VERSION%%.*}
+            if [ "$CURRENT_MAJOR" -gt "$LATEST_MAJOR" ]; then
+              echo "Manual major release detected; skipping automatic tag."
+              exit 0
+            fi
+            BASE_VERSION=$LATEST_VERSION
+          else
+            BASE_VERSION=$CURRENT_VERSION
+          fi
+
+          BASE_MAJOR=$(printf '%s' "$BASE_VERSION" | cut -d. -f1)
+          BASE_MINOR=$(printf '%s' "$BASE_VERSION" | cut -d. -f2)
+          NEXT_VERSION="${BASE_MAJOR}.$((BASE_MINOR + 1)).0"
+          NEXT_TAG="v${NEXT_VERSION}"
+
+          if git rev-parse "$NEXT_TAG" >/dev/null 2>&1; then
+            echo "Tag $NEXT_TAG already exists."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "$NEXT_TAG"
+          git push origin "$NEXT_TAG"

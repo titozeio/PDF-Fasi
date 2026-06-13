@@ -1,4 +1,4 @@
-name: Docs
+name: Docs Publish
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Prepare Pages artifact
         run: |
