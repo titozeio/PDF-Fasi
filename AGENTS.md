@@ -167,9 +167,12 @@ Review phase:
 - **STEP 5**: If all the US and their tasks are marked as `[x]`, this means the epic is finished (and the sprint too). Ask the PM for final confirmation.
   - If the PM gives the confirmation, proceed to step 6.
   - If not, follow the PM´s instructions and go back to step 1.
-- **STEP 6**: Mark the current epic as `done` in `docs/ROADMAP.md`, locate the next epic.
-  - If there are no epics left, ask the PM for next steps. Any new epic created as a result of that consultation should be marked as `new`. Once the new epics  are ready (you have created the needed structure and incorporated them to the roadmap in the proper place), mark the next one as `spec` and proceed with the next sprint.
-  - If there is at least one epic left, mark the next one as `spec` and proceed with a new sprint with that epic.
+- **STEP 6**: Mark the current epic as `done` in `docs/ROADMAP.md`
+  - Ask the PM if he wants to update the `readme.md` of the project to reflect the changes made to the project. If he does, propose changes, and keep improving them according to PM´s feedback, until approved. Then, update readme.md.
+  - Report the PM that all set and done to start the next sprint, in case they want to do any repo-related work on their side.
+  - Locate the next epic. 
+    - If there are no epics left, ask the PM for next steps. Any new epic created as a result of that consultation should be marked as `new`. Once the new epics  are ready (you have created the needed structure and incorporated them to the roadmap in the proper place), mark the next one as `spec` and proceed with the next sprint.
+    - If there is at least one epic left, mark the next one as `spec` and proceed with a new sprint with that epic.
 
 ## Roles
 
