@@ -7,8 +7,8 @@
   "scripts": {
     "start": "electron .",
     "test": "node --test",
-    "dist:win": "npx -y electron-builder@27 --win portable --publish never",
-    "dist:mac": "npx -y electron-builder@27 --mac dmg --publish never"
+    "dist:win": "npm exec -- electron-builder --win portable --publish never",
+    "dist:mac": "npm exec -- electron-builder --mac dmg --publish never"
   },
   "build": {
     "appId": "com.pdf-fasi.app",
@@ -33,6 +33,7 @@
     "artifactName": "${productName}-${version}-${os}-${arch}.${ext}"
   },
   "devDependencies": {
+    "electron-builder": "26.11.1",
     "electron": "*"
   }
 }
