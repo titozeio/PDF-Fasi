@@ -1,12 +1,36 @@
 {
   "name": "pdf-fasi",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Desktop PDF utility focused on local compression",
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
-    "test": "node --test"
+    "test": "node --test",
+    "dist:win": "npx -y electron-builder@27 --win portable --publish never",
+    "dist:mac": "npx -y electron-builder@27 --mac dmg --publish never"
+  },
+  "build": {
+    "appId": "com.pdf-fasi.app",
+    "productName": "PDF-Fasi",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "portable"
+      ]
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ]
+    },
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}"
   },
   "devDependencies": {
     "electron": "*"
